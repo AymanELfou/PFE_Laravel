@@ -8,7 +8,12 @@ use Illuminate\Http\Request;
 class ProduitController extends Controller
 {
     public function home(){
-        return view("Home");
+        
+        $produits = Product::paginate(3);
+        return view('AllProduct',['products' => $produits]);
+
+        // OR: return view('AllProduct',compact('produits'));
+
     }
 
 
