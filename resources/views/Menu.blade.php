@@ -20,6 +20,10 @@
             <li class="nav-item mx-1">
                 <a class="nav-link active" href="/produits/Souris">Souris</a>
             </li>
+
+            <li class="nav-item mx-1">
+                <a class="nav-link active" href="/produits/Clavier">Clavier</a>
+            </li>
         </ul>
     </div>
     </nav>
