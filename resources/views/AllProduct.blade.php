@@ -23,6 +23,28 @@
               <div class="col-md-3 col-lg-3 col-xl-2">
                 <h5 class="mb-0">{{ $item['prix'] }} DH</h5>
               </div>
+
+              <div class="col-md-3 col-lg-3 col-xl-2">
+                <h5 class="mb-0">
+                  <div class="d-flex col-6">
+                    
+                  
+                  <form action="{{ route('destroy',$item->id) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    
+                    <button style="border: none; cursor: pointer;">
+                      <img src="{{ asset('imgs/delete_13221.webp') }}" alt="delete" style="width: 50px; height: 50px;" />
+                    </button>
+                    
+                  </form>
+                  
+                  
+                  <a href="produits/{{ $item->id }}/edit"><img src="{{ asset('imgs/e.png') }}" alt="modify" style="width: 50px; height: 50px;" /></div></a>
+                </h5>
+                
+
+              </div>
             </div>
           </div>
         </div>
