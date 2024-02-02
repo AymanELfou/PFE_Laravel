@@ -11,28 +11,30 @@ use Symfony\Component\HttpFoundation\Response;
 class AdminUserMiddleware
 {
     /**
-     * Handle an incoming request.
+     * Gère une demande entrante.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @return mixed
      */
-
     public function handle(Request $request, Closure $next)
     {
-        $user=Auth::user();
-            if(!$user)
-            {
+        // Récupère l'utilisateur authentifié
+        $user = Auth::user();
+
+        // Vérifie si aucun utilisateur n'est authentifié
+        if (!$user) {
+            // Redirige vers la page de connexion
             return redirect()->route('login');
-			
-			// ou bien  return redirect('/login');
-            }
+            // Ou bien: return redirect('/login');
+        }
 
-			
-            if($user['role'] != User::ADMIN_ROLE )
-            {
-                return redirect()->route('login');
-            }
+        // Vérifie si l'utilisateur authentifié n'a pas le rôle d'administrateur
+        if ($user['role'] != User::ADMIN_ROLE) {
+            // Redirige vers la page de connexion
+            return redirect()->route('login');
+        }
 
-            return $next($request);
+        // Passe la demande au middleware suivant dans la chaîne
+        return $next($request);
     }
-
 }

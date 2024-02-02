@@ -260,7 +260,7 @@ class RproductController extends Controller
     }
 
 
-    
+
     public function email()
     {
         return view('contact.show');
@@ -278,6 +278,7 @@ class RproductController extends Controller
         Mail::to($data['email'])->send(new ContactMail($data));
 
         return back()->with('success','Email sent successfully!');
+        
     }
 
 }
