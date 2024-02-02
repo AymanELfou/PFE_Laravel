@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddArticleRequest;
 use App\Models\Product;
+use App\Mail\ContactMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class RproductController extends Controller
@@ -14,7 +16,7 @@ class RproductController extends Controller
     public function index()
     {
         $produits=Product::paginate(3);
-        return view('home', ['products' => $produits ]);
+        return view('AllProduct', ['products' => $produits ]);
     }
 
     /**
@@ -126,4 +128,156 @@ class RproductController extends Controller
 
         return back()->with('successdelete','You have successfully deleted a product.');
     }
+
+    public function client(){
+        return view("espaceclient");
+    }
+
+    public function Contact(){
+        return view("contact.show");
+    }
+
+
+
+
+
+             //--------------- Cart methods --------------:
+
+
+
+    public function showcards(){
+
+        $products=Product::all();
+        return view("CardsProd",compact('products'));
+    }
+
+
+
+
+    public function cart(){
+        return view("cart");
+    }
+
+
+
+
+
+
+    public function addTocart($id){
+
+        $product=Product::find($id);
+
+        $cart = session()->get('cart');
+
+        // if cart is empty then this the first product
+        if(!$cart){
+            $cart = [
+                $id =>[
+                    "name"=>$product->name,
+                    "quantity" => 1,
+                    "price" => $product->prix,
+                    "photo" => $product->image
+                ]
+            ];
+
+            session()->put('cart',$cart);
+
+            return redirect()->back()->with('success', 'added to cart successfully!');
+        }
+
+        // if cart not empty then check if this product exist then increment quantity
+        if(isset($cart[$id])){
+
+            $cart[$id]['quantity']++;
+
+            session()->put('cart',$cart);
+
+            return redirect()->back()->with('success', 'Product added to cart successfully!');
+        }
+
+
+        // if item not exist in cart then add to cart with quantity = 1
+        $cart[$id] = [
+            "name" => $product->nom,
+            "quantity" => 1,
+            "price" => $product->prix,
+            "photo" => $product->image
+        ];
+
+        session()->put('cart', $cart); // this code put product of choose in cart
+
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+
+
+
+
+
+
+    // Update Cart:
+
+    public function updateCrt(Request $request){
+
+        if($request->id and $request->quantity){
+            $cart = session()->get('cart');
+
+            $cart[$request->id]["quantity"] = $request->quantity;
+
+            session()->put('cart',$cart);
+
+            session()->flash('success', 'Cart updated successfully');
+
+            return response()->json(['success' => true]);
+        }
+
+        
+    }
+
+
+
+
+
+
+    // Remove Product of Cart:
+
+    public function removeCrt(Request $request){
+
+        if($request->id){
+            $cart = session()->get('cart');
+
+            if(isset($cart[$request->id])){
+
+                unset($cart[$request->id]);
+                
+                session()->put('cart',$cart);
+            }
+
+            session()->flash('success', 'Product removed successfully');
+
+        }
+
+        
+    }
+
+
+    
+    public function email()
+    {
+        return view('contact.show');
+    }
+
+    public function sendEmail(Request $request)
+    {
+        $data = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'content' => $request->input('content'),
+        ];
+
+        // Envoyer l'e-mail en utilisant la classe Mailable
+        Mail::to($data['email'])->send(new ContactMail($data));
+
+        return back()->with('success','Email sent successfully!');
+    }
+
 }

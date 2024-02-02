@@ -4,6 +4,7 @@
 @section('content')
 <section class="h-100" style="background-color: #eee;">
   <div class="container h-100 py-5">
+  @include('incs.flash')
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-10">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -18,10 +19,14 @@
                 <img src="{{ asset('imgs/'.$item['image']) }}" class="img-fluid rounded-3" alt="{{ $item['nom'] }}">
               </div>
               <div class="col-md-3 col-lg-3 col-xl-3">
-                <p class="lead fw-normal mb-2">{{ $item['nom'] }}</p>
+                <i><p class="lead mb-2 text-dark" style="font-weight: bold;">{{ $item['nom'] }}</p></i>
               </div>
               <div class="col-md-3 col-lg-3 col-xl-2">
                 <h5 class="mb-0">{{ $item['prix'] }} DH</h5>
+              </div>
+
+              <div class="col-md-3 col-lg-3 col-xl-2">
+                <h5 class="mb-0"><a href="{{ route('add_to_cart', $item->id) }}" class="btn btn-danger btn-block" role="button">Add to Cart</a></h5>
               </div>
             </div>
           </div>

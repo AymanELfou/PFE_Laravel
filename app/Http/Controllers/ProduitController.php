@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class ProduitController extends Controller
@@ -26,5 +27,23 @@ class ProduitController extends Controller
             'products' => $produits,
             'categorie' => $cat
             ]);
+    }
+
+
+    public function cataloguepdf(){
+        // Récupérer les produits avec un solde égal à 1
+
+        $product = Product::where('solde',1)->get();
+
+        $data = [
+            'products' => $product
+        ];
+
+        // Générer le PDF
+        $pdf =Pdf::loadView('catalogue',$data);
+
+        // Télécharger le PDF
+        return $pdf->stream();
+
     }
 }

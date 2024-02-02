@@ -215,13 +215,15 @@ main .counter span {
 
 </style>
 
+
 </head>
 <body>
 <main>
+  
   <div class="content">
     <h2>Welcome to Online Gaming Store</h2>
     <p> Welcome to Games Store, your go-to for premium gaming peripherals like mice, headsets, and keyboards. Whether you're a dedicated gamer or seeking the perfect gift, we've got it all. Elevate your gaming with style and precision  explore Games Store for top-tier gear!</p>
-    
+    <b><a href="/CardsProd" style="background-color: black; color: white; border-radius: 12px; padding: 15px;width: 120px;text-decoration: none;margin-top: 10px;font-family: Verdana, Geneva, Tahoma, sans-serif;">Buy Now!</a></b>
   </div>
 
   <div class="swiper-container">
@@ -246,7 +248,7 @@ main .counter span {
 
         </div>
         <div class="swiper-slide swiper-slide--five">
-          <span>bestseller</span>
+          
 
         </div>
         <div class="swiper-slide swiper-slide--six">
@@ -261,7 +263,9 @@ main .counter span {
 
     <div class="swiper-pagination"></div>
   </div>
+      
   <div class="circle"></div>
+  
 </main>
 
 
