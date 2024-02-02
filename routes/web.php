@@ -1,7 +1,13 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\RproductController;
+use App\Models\Rproduit;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,57 +46,95 @@ Route::fallback( function () {
 }); */
 
 
-Route::get('/', function () {
-    return view('Home');
+Route::get('/' , function () {
+    return view('welcome');
+}); 
+
+//Route::get('/products',[ProduitController::class,'home']); 
+
+Route::get('/produitss/{cat}',[ProduitController::class,'getProdByCat']);
+
+
+/*************Routes Controller Resource************/
+/**
+** Route::get('/produits', 'RproductController@index')->name('index');    //    Appel : <a href="{{ route('name') }}">
+** Route::get('/produits/create',[RproductController::class,'create'])->name('create');
+** Route::post('/produits', [RproductController::class,'store'])->name('store');
+** Route::get('/produits/{id}', [RproductController::class,'show'])->name('show');
+** Route::get('/produits/{id}/edit', [RproductController::class,'edit'])->name('edit'); // Appel : route('edit', ['id' => $id]);
+** Route::put('/produits/{id}', [RproductController::class,'update'])->name('update');
+** Route::delete('/produits/{id}', [RproductController::class,'destroy'])->name('destroy');
+**/
+
+//Route::resource('produits', RproductController::class);
+
+
+Route::get('/produits/create',[RproductController::class,'create'])->name('create');
+
+Route::put('/produits/{id}', [RproductController::class,'update'])->name('update');
+
+Route::delete('/produits/{id}', [RproductController::class,'destroy'])->name('destroy');
+
+
+
+Route::get('/espaceclient', [RproductController::class,'client'])->middleware('useruser');
+
+Route::get('/Contact', [RproductController::class,'Contact'])->middleware('useruser');
+
+
+
+/************* Routes Authentification ************/
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/produits', [RproductController::class, 'index'])->middleware('adminuser');
+
+
+Route::get('/catalogue', [ProduitController::class,'cataloguepdf'])->middleware('useruser');
+
+
+
+
+Route::middleware(['adminuser'])->group(function () {
+
+    Route::get('/produits/{id}', [RproductController::class,'show'])->name('show');
+    Route::get('/produits/{id}/edit', [RproductController::class,'edit'])->name('edit');
+    Route::post('/produits', [RproductController::class,'store'])->name('store');
+    Route::get('/produits/create', [RproductController::class,'create'])->name('create');    //    Appel : <a href="{{ route('name') }}">
+    Route::put('/produits/{id}', [RproductController::class,'update'])->name('update');
+    Route::delete('/produits/{id}', [RproductController::class,'destroy'])->name('destroy');
+   
+
+
+
 });
 
-Route::get('/produits/{cat}',function($cat){
-    $produits=[];
 
-    if($cat=="Casque"){
-        $produits=array(
-            array(
-                "nom"=>"Casque Gaming JBL Quantum",
-                "prix"=>499,
-                "image" => "Casque-Gaming-JBL.webp"
-            ),
-            array(
-                "nom"=>"ASUS ROG RGB Gaming Headset",
-                "prix"=>799,
-                "image" => "Asus.jpg"
-            ),
-            array(
-                "nom"=>"Razer Kraken Casque Gaming USB ",
-                "prix"=>949,
-                "image" => "razer_.jpg"
-            ),
-        );
-    }
-    else if($cat=='Souris'){
-       $produits=array(
-            array(
-                "nom" => "Souris Gamer Razer",
-                "prix"=>599,
-                "image" => "souris_razer.jpg"
-            ),
-            array(
-                "nom" => "Souris Gamer ASUS                ",
-                "prix"=>699,
-                "image" => "asusSouris.webp"
-            ),
-            array(
-                "nom" => "RisoPhy Souris Gamer sans Fil",
-                "prix"=>299,
-                "image" => "rog_.webp"
-            )
-        );
-    }
-    return view('Produits', [
-        "products"=>$produits,
-        "categorie"=>$cat
-    ]);
-});
+
+/************* Routes Cart ************/
+
+
+
+Route::get('/CardsProd',[RproductController::class,'showcards']);
+
+
+Route::get('/cart',[RproductController::class,'cart']);
+
+Route::get('/cart/addc/{id}',[RproductController::class,'AddTocart'])->name('add_to_cart');
+
+Route::patch('update-cart',[RproductController::class,'updateCrt']);
+
+Route::delete('remove-from-cart',[RproductController::class,'removeCrt']);
 
 
 
 
+/************* Routes Cart ************/
+
+
+
+Route::get('/contact', [RproductController::class,'email']);
+Route::post('/contact/email', [RproductController::class, 'sendEmail'])->name('send.email');
