@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\RproductController;
+use App\Http\Controllers\StripeController;
 use App\Models\Rproduit;
 use Illuminate\Support\Facades\Auth;
 
@@ -138,3 +139,10 @@ Route::delete('remove-from-cart',[RproductController::class,'removeCrt']);
 
 Route::get('/contact', [RproductController::class,'email']);
 Route::post('/contact/email', [RproductController::class, 'sendEmail'])->name('send.email');
+
+
+/************* Stripe Routes ************/
+
+Route::post('/session',[StripeController::class,'session']);
+Route::get('/success', [StripeController::class,'success'])->name('success');
+Route::get('/cancel', [StripeController::class,'cancel'])->name('cancel');
