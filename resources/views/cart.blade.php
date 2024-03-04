@@ -30,9 +30,9 @@
                     <tr data-id="{{ $id }}">
                         <td data-th="Product">
                             <div class="row">
-                                <div class="col-sm-3 hidden-xs"><img src="{{ asset('imgs/'.$details['photo']) }}" width="100" height="100" class=""/></div>
+                                <div class="col-sm-3 "><img src="{{ asset('imgs/'.$details['photo']) }}" width="100" height="100" class=""/></div>
                                 <div class="col-sm-9">
-                                    <h4 class="">{{ $details['name'] }}</h4>
+                                    <h4>{{ $details['name'] }}</h4>
                                 </div>
                             </div>
                         </td>

@@ -7,12 +7,9 @@
   <meta charset="UTF-8">
   <title>CodePen - Just another carousel using swiper #swiper.js #scss</title>
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css'>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'>
-<style>
-  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Noto+Serif+Vithkuqi:wght@500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Chonburi&display=swap");
-
+<!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'>
+ --><style>
+ 
 
 ul {
   margin: 0;

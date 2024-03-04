@@ -173,7 +173,7 @@ class RproductController extends Controller
         if(!$cart){
             $cart = [
                 $id =>[
-                    "name"=>$product->name,
+                    "name"=>$product->nom,
                     "quantity" => 1,
                     "price" => $product->prix,
                     "photo" => $product->image

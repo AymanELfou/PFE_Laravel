@@ -10,7 +10,7 @@
         style="background-color: #3b5998;"
         href="#!"
         role="button"
-        ><i class="fab fa-facebook-f"></i
+        ><i class="fa fa-facebook-f"></i
       ></a>
 
       <!-- Twitter -->
@@ -20,7 +20,7 @@
         style="background-color: #55acee;"
         href="#!"
         role="button"
-        ><i class="fab fa-twitter"></i
+        ><i class="fa fa-twitter"></i
       ></a>
 
       <!-- Google -->
@@ -30,7 +30,7 @@
         style="background-color: #dd4b39;"
         href="#!"
         role="button"
-        ><i class="fab fa-google"></i
+        ><i class="fa fa-google"></i
       ></a>
 
       <!-- Instagram -->
@@ -40,18 +40,10 @@
         style="background-color: #ac2bac;"
         href="#!"
         role="button"
-        ><i class="fab fa-instagram"></i
+        ><i class="fa fa-instagram"></i
       ></a>
 
-      <!-- Linkedin -->
-      <a
-        data-mdb-ripple-init
-        class="btn text-white btn-floating m-1"
-        style="background-color: #0082ca;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-linkedin-in"></i
-      ></a>
+      
       <!-- Github -->
       
     </section>
